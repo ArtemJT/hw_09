@@ -13,7 +13,7 @@ public class FileLoggerConfigurationLoader {
 
         File filesDir = null;
         LoggingLevel loggingLevel = null;
-        int size = 0;
+        long size = 0;
         String format = "";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {

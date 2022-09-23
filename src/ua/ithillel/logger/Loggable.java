@@ -11,7 +11,7 @@ interface Loggable {
             FileLoggerConfigurationLoader.loadConfig("./src/ua/ithillel/logger/logConfig.txt");
     File sourceDir = config.FILE();
     String fileFormat = config.FORMAT();
-    int maxFileSize = config.MAX_SIZE();
+    long maxFileSize = config.MAX_SIZE();
     LoggingLevel loggingLevel = config.LOGGING_LEVEL();
 
     default void writeLogIntoFile(String message) {
@@ -20,18 +20,11 @@ interface Loggable {
         String fstName = String.format("Log_%s", date);
         String formattedMessage = String.format("[%s_%s][%s][%s]\n", date, currentTime, loggingLevel.name(), message);
 
-        File[] fileList = sourceDir.listFiles();
-        int count = 0;
-        File logFile;
-        if (fileList.length > 0) {
-            count = fileList.length;
-            logFile = fileList[count - 1];
-        } else {
-            logFile = new File(sourceDir, fstName + fileFormat);
-        }
+        File logFile = new File(sourceDir, fstName + fileFormat);
 
-        if (formattedMessage.length() + logFile.length() >= maxFileSize) {
-            logFile = new File(sourceDir, String.format("%s_%s%s", fstName, count, fileFormat));
+        long currentSize = formattedMessage.length() + logFile.length();
+        if (currentSize >= maxFileSize) {
+            throw new FileMaxSizeReachedException(currentSize, maxFileSize);
         }
 
         try (FileWriter osWriter = new FileWriter(logFile, true)) {

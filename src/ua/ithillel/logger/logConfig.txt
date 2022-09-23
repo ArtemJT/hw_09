@@ -1,0 +1,4 @@
+FILE: ./src/logFiles/
+LEVEL: DEBUG
+MAX-SIZE: 100
+FORMAT: .txt

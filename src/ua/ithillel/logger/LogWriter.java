@@ -6,15 +6,16 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-interface Loggable {
-    FileLoggerConfiguration config =
-            FileLoggerConfigurationLoader.loadConfig("./src/ua/ithillel/logger/logConfig.txt");
-    File sourceDir = config.FILE();
-    String fileFormat = config.FORMAT();
-    long maxFileSize = config.MAX_SIZE();
-    LoggingLevel loggingLevel = config.LOGGING_LEVEL();
+class LogWriter {
 
-    default void writeLogIntoFile(String message) {
+    static FileLoggerConfiguration config =
+            FileLoggerConfigurationLoader.loadConfig("./src/ua/ithillel/logger/logConfig.txt");
+    static File sourceDir = config.FILE();
+    static String fileFormat = config.FORMAT();
+    static long maxFileSize = config.MAX_SIZE();
+    static LoggingLevel loggingLevel = config.LOGGING_LEVEL();
+
+    public void writeLogIntoFile(String message) {
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         String fstName = String.format("Log_%s", date);

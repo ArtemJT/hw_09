@@ -8,7 +8,6 @@ import java.io.IOException;
 public class FileLoggerConfigurationLoader {
 
     public static FileLoggerConfiguration loadConfig(String path) {
-
         if (path == null) return null;
 
         File filesDir = null;
@@ -20,7 +19,7 @@ public class FileLoggerConfigurationLoader {
             while (reader.ready()) {
                 String input = reader.readLine();
                 if (input.contains("FILE")) {
-                    filesDir = new File(input.replaceAll("FILE: ", ""));
+                    filesDir = new File(input.replaceAll("FILE=", ""));
                 }
                 if (input.contains("DEBUG")) {
                     loggingLevel = LoggingLevel.DEBUG;
@@ -30,13 +29,13 @@ public class FileLoggerConfigurationLoader {
                 }
                 if (input.contains("MAX-SIZE")) {
                     try {
-                        size = Integer.parseInt(input.replaceAll("MAX-SIZE: ", ""));
+                        size = Integer.parseInt(input.replaceAll("MAX-SIZE=", ""));
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
                 }
                 if (input.contains("FORMAT")) {
-                    format = input.replaceAll("FORMAT: ", "");
+                    format = input.replaceAll("FORMAT=", "");
                 }
             }
         } catch (IOException e) {

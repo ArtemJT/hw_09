@@ -1,14 +1,19 @@
 package ua.ithillel.logger;
 
-public class FileLogger implements Loggable {
+public class FileLogger extends LogWriter {
 
-    public static void getLogger() {
+    public static FileLogger getLogger() {
         if (sourceDir.mkdirs()) System.out.println("Log's catalog created");
 
+        FileLogger logger = new FileLogger();
         switch (loggingLevel) {
-            case DEBUG -> new FileLogger().debug("DEBUG MESSAGE");
-            case INFO -> new FileLogger().info("INFO MESSAGE");
+            case DEBUG: {
+                logger.debug("DEBUG MESSAGE");
+                loggingLevel = LoggingLevel.INFO;
+            }
+            case INFO: logger.info("INFO MESSAGE");
         }
+        return logger;
     }
 
     public void debug(String message) {

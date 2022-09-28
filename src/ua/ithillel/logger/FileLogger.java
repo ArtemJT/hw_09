@@ -1,6 +1,6 @@
 package ua.ithillel.logger;
 
-public class FileLogger extends LogWriter {
+public class FileLogger extends FileLogWriter {
 
     public static FileLogger getLogger() {
         if (sourceDir.mkdirs()) System.out.println("Log's catalog created");
@@ -11,18 +11,19 @@ public class FileLogger extends LogWriter {
                 logger.debug("DEBUG MESSAGE");
                 loggingLevel = LoggingLevel.INFO;
             }
-            case INFO: logger.info("INFO MESSAGE");
+            case INFO:
+                logger.info("INFO MESSAGE");
         }
         return logger;
     }
 
     public void debug(String message) {
         System.out.println("DEBUG LOGGING");
-        writeLogIntoFile(message);
+        writeLog(message);
     }
 
     public void info(String message) {
         System.out.println("INFO LOGGING");
-        writeLogIntoFile(message);
+        writeLog(message);
     }
 }

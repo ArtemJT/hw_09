@@ -7,7 +7,7 @@ import static ua.ithillel.logger.LoggerConfigurationLoader.loadConfig;
 
 public interface LogWritable {
 
-    String PROPERTIES_FILE = "src/ua/ithillel/logger/resources/logConfig.properties";
+    String PROPERTIES_FILE = "src/ua/ithillel/resources/logConfig.properties";
     String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yy"));
     String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     String messageTemplate = "[%s_%s][%s][%s]\n";

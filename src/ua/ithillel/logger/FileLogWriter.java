@@ -6,6 +6,9 @@ import java.io.IOException;
 
 public class FileLogWriter implements LogWritable {
 
+    protected static String PROPERTIES_FILE = "src/ua/ithillel/resources/logConfig.properties";
+    protected static LoggerConfiguration LOGGER_CONFIG = new FileLoggerConfigurationLoader().loadConfig(PROPERTIES_FILE);
+
     protected static File sourceDir = LOGGER_CONFIG.FILE();
     protected static String fileFormat = LOGGER_CONFIG.FORMAT();
     protected static long maxFileSize = LOGGER_CONFIG.MAX_SIZE();

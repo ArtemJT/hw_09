@@ -20,10 +20,11 @@ public class FileLoggerConfigurationLoader implements LoggerConfigurationLoader 
         try (InputStream inputStream = new FileInputStream(path)) {
             Properties prop = new Properties();
             prop.load(inputStream);
-            sourceDir = new File(prop.getProperty("FILE"));
-            loggingLevel = LoggingLevel.valueOf(prop.getProperty("LEVEL"));
-            maxFileSize = Long.parseLong(prop.getProperty("MAX-SIZE"));
-            fileFormat = prop.getProperty("FORMAT");
+            sourceDir = new File(prop.getProperty(FILE));
+            String lvlProp = prop.getProperty(LEVEL);
+            loggingLevel = !lvlProp.isEmpty() ? LoggingLevel.valueOf(lvlProp) : LoggingLevel.INFO;
+            maxFileSize = Long.parseLong(prop.getProperty(MAX_SIZE));
+            fileFormat = prop.getProperty(FORMAT);
         } catch (IOException e) {
             e.printStackTrace();
         }

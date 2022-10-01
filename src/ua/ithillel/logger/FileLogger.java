@@ -6,13 +6,10 @@ public class FileLogger extends FileLogWriter {
         if (sourceDir.mkdirs()) System.out.println("Log's catalog created");
 
         FileLogger logger = new FileLogger();
+        final String logMessage = loggingLevel.getMessage();
         switch (loggingLevel) {
-            case DEBUG: {
-                logger.debug("DEBUG MESSAGE");
-                loggingLevel = LoggingLevel.INFO;
-            }
-            case INFO:
-                logger.info("INFO MESSAGE");
+            case DEBUG -> logger.debug(logMessage);
+            case INFO -> logger.info(logMessage);
         }
         return logger;
     }
